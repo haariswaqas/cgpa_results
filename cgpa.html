@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Results/GPA Calculator</title>
+</head>
+<body>
+    <style>
+		body {
+			font-family: Arial, sans-serif;
+			margin: 20px;
+		}
+
+		h1 {
+			text-align: center;
+		}
+
+		form {
+			max-width: 600px;
+			margin: 0 auto;
+		}
+
+		label {
+			display: block;
+			margin-top: 10px;
+		}
+
+		input[type="number"] {
+			width: 100%;
+			padding: 5px;
+			border: 1px solid #ccc;
+			border-radius: 3px;
+		}
+
+		button {
+			display: block;
+			width: 100%;
+			padding: 10px;
+			margin-top: 20px;
+			background-color: #4CAF50;
+			color: white;
+			border: none;
+			border-radius: 3px;
+			cursor: pointer;
+		}
+
+		button:hover {
+			background-color: #45a049;
+		}
+
+		#grades-result {
+			margin-top: 20px;
+		}
+
+		table {
+			width: 100%;
+			border-collapse: collapse;
+		}
+
+		th, td {
+			padding: 5px;
+			text-align: left;
+			border-bottom: 1px solid #ddd;
+		}
+
+		th {
+			background-color: #f2f2f2;
+		}
+
+		h2 {
+			margin-top: 20px;
+		}
+
+        h3 {
+			margin-top: 20px;
+		}
+        h4 {
+			margin-top: 20px;
+		}
+
+		p {
+			margin-top: 5px;
+		}
+	</style>
+	<h1>CGPA Calculator</h1>
+    <h3>Determine your Grades and CGPA</h3>
+    <h4>Enter Scores Only</h4>
+    <h4>Good Luck..</h4>
+    <h6> <strong>But are you strong?</strong></h6>
+
+	<form>
+        <label for="student">Student Name</label>
+        <input type="text" name="student" id="student">
+
+		<label for="calculus1">Calculus 1: Single Variable</label>
+		<input type="number" id="calculus1" name="calculus1" required><br>
+
+		<label for="mech1">Mechanics 1: Statics</label>
+		<input type="number" id="mech1" name="mech1" required><br>
+
+		<label for="cad">Engineering Graphics (CAD)</label>
+		<input type="number" id="cad" name="cad" required><br>
+
+		<label for="intro">Intro to Engineering</label>
+		<input type="number" id="intro" name="intro" required><br>
+
+		<label for="cei">Computer Engineering Innovations</label>
+		<input type="number" id="cei" name="cei" required><br>
+
+		<label for="aca_writing">Academic Writing</label>
+		<input type="number" id="aca_writing" name="aca_writing" required><br>
+
+		<label for="phy">General Physics</label>
+		<input type="number" id="phy" name="phy" required><br>
+
+        <label for="be">Basic Electronics</label>
+		<input type="number" id="be" name="be" required><br>
+
+        <label for="ae">Applied Electricity</label>
+		<input type="number" id="ae" name="ae" required><br>
+
+        <label for="mech2">Mechanics II: Dynamics</label>
+		<input type="number" id="mech2" name="mech2" required><br>
+
+        <label for="crt">Critical Thinking & Practical Reasoning:</label>
+		<input type="number" id="crt" name="crt" required><br>
+
+        <label for="eng_design">Engineering Design:</label>
+		<input type="number" id="eng_design" name="eng_design" required><br>
+
+        <label for="calculus2">Calculus II: Multivariable/label>
+		<input type="number" id="calculus2" name="calculus2" required><br>
+
+        <label for="comp_tools">Engineering Computational Tools:</label>
+		<input type="number" id="comp_tools" name="comp_tools" required><br>
+
+		<button id="grade-button" type="submit">Get Results</button>
+	</form>
+
+	<div id="grades-result"></div>
+
+	<script>
+		    const calculateButton = document.getElementById('grade-button');
+    calculateButton.addEventListener('click', function(event) {
+        event.preventDefault();
+        const student_name = document.getElementById('student').value;
+
+        const scores = [
+            parseFloat(document.getElementById("calculus1").value),
+            parseFloat(document.getElementById("mech1").value),
+            parseFloat(document.getElementById("cad").value),
+            parseFloat(document.getElementById("intro").value),
+            parseFloat(document.getElementById("cei").value),
+            parseFloat(document.getElementById("aca_writing").value),
+            parseFloat(document.getElementById("phy").value),
+            parseFloat(document.getElementById("be").value),
+            parseFloat(document.getElementById("ae").value),
+            parseFloat(document.getElementById("mech2").value),
+            parseFloat(document.getElementById("crt").value),
+            parseFloat(document.getElementById("eng_design").value),
+            parseFloat(document.getElementById("calculus2").value),
+            parseFloat(document.getElementById("comp_tools").value)
+        ];
+
+        const grade = [];
+        const grade_point = [];
+        const credit = [4, 3, 3, 2, 3, 3, 3, 3, 3, 3, 3, 3, 4, 3];
+        let totalCredits = 0;
+        let totalGPT = 0;
+
+        for (let i = 0; i < scores.length; i++) {
+            let score = scores[i];
+
+            totalCredits += credit[i];
+
+            if (score >= 80) {
+                grade.push("A");
+                grade_point.push(4);
+            } else if (score >= 75 && score < 80) {
+                grade.push("B+");
+                grade_point.push(3.5);
+            } else if (score >= 70 && score < 75) {
+                grade.push("B");
+                grade_point.push(3);
+            } else if (score >= 65 && score < 70) {
+                grade.push("C+");
+                grade_point.push(2.5);
+            } else if (score >= 60 && score < 65) {
+                grade.push("C");
+                grade_point.push(2);
+            } else if (score >= 55 && score < 60) {
+                grade.push("D+");
+                grade_point.push(1.5);
+            } else if (score >= 50 && score < 55) {
+                grade.push("D");
+                grade_point.push(1);
+            } else if (score >= 40 && score < 50) {
+                grade.push("E");
+                grade_point.push(0.5);
+            } else {
+                grade.push("F");
+                grade_point.push(0);
+            }
+
+            totalGPT += grade_point[i] * credit[i];
+        }
+
+        const cgpa = totalGPT / totalCredits;
+
+        const result = document.getElementById("grades-result");
+
+			result.innerHTML = `
+                <h1> ${student_name}</h1>
+				<h2>Grades</h2>
+                <h3>CGPA: ${cgpa.toFixed(2)} </h3>
+				
+				<table>
+					<tr>
+						<th>Course</th>
+						<th>Grade</th>
+						<th>Grade Point</th>
+						<th>Credits</th>
+					</tr>
+					<tr>
+						<td>Calculus 1: Single Variable</td>
+						<td>${grade[0]}</td>
+						<td>${grade_point[0]}</td>
+						<td>${credit[0]}</td>
+					</tr>
+					<tr>
+						<td>Mechanics 1: Statics</td>
+						<td>${grade[1]}</td>
+						<td>${grade_point[1]}</td>
+						<td>${credit[1]}</td>
+					</tr>
+					<tr>
+						<td>Engineering Graphics (CAD)</td>
+						<td>${grade[2]}</td>
+						<td>${grade_point[2]}</td>
+						<td>${credit[2]}</td>
+					</tr>
+					<tr>
+						<td>Intro to Engineering.</td>
+						<td>${grade[3]}</td>
+						<td>${grade_point[3]}</td>
+						<td>${credit[3]}</td>
+					</tr>
+					<tr>
+						<td>Computer Engineering Innovations</td>
+						<td>${grade[4]}</td>
+						<td>${grade_point[4]}</td>
+						<td>${credit[4]}</td>
+					</tr>
+					<tr>
+						<td>Academic Writing 1</td>
+						<td>${grade[5]}</td>
+						<td>${grade_point[5]}</td>
+						<td>${credit[5]}</td>
+					</tr>
+					<tr>
+						<td>General Physics</td>
+						<td>${grade[6]}</td>
+						<td>${grade_point[6]}</td>
+						<td>${credit[6]}</td>
+					</tr>
+                    <tr>
+                    <td>Basic Electronics</td>
+						<td>${grade[7]}</td>
+						<td>${grade_point[7]}</td>
+						<td>${credit[7]}</td>
+					</tr>
+                    <tr>
+                    <td>Applied Electricity</td>
+						<td>${grade[8]}</td>
+						<td>${grade_point[8]}</td>
+						<td>${credit[8]}</td>
+					</tr>
+                
+                    <tr>
+                    <td>Mechanics 2: Dynamics</td>
+						<td>${grade[9]}</td>
+						<td>${grade_point[9]}</td>
+						<td>${credit[9]}</td>
+					</tr>
+
+                    <tr>
+                    <td>Critical Thinking & Practical Reasoning</td>
+						<td>${grade[10]}</td>
+						<td>${grade_point[10]}</td>
+						<td>${credit[10]}</td>
+					</tr>
+
+                    <tr>
+                    <td>Engineering Design</td>
+						<td>${grade[11]}</td>
+						<td>${grade_point[11]}</td>
+						<td>${credit[11]}</td>
+					</tr>
+                    <tr>
+                    <td>Calculus 2: Multivariable</td>
+						<td>${grade[12]}</td>
+						<td>${grade_point[12]}</td>
+						<td>${credit[12]}</td>
+					</tr>
+
+                    <tr>
+                    <td>Engineering Computational Tools</td>
+						<td>${grade[13]}</td>
+						<td>${grade_point[13]}</td>
+						<td>${credit[13]}</td>
+					</tr>
+				</table>
+
+				
+			`;
+		});
+	</script>
+</body>
+</html>
